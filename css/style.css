@@ -72,10 +72,19 @@ nav{
 }
 
 .logo{
-    font-size:28px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
     font-weight:bold;
     color:var(--gold);
     letter-spacing:1px;
+}
+
+.logo img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
 }
 
 .menu{
@@ -84,11 +93,44 @@ nav{
 }
 
 .menu a{
+    position:relative;
+    padding:4px 0;
     transition:var(--transition);
 }
 
 .menu a:hover{
     color:var(--gold);
+}
+
+.menu a.active{
+    color:var(--gold);
+}
+
+.menu a.active::after{
+    content:"";
+    position:absolute;
+    right:0;
+    bottom:-4px;
+    width:100%;
+    height:2px;
+    background:var(--gold);
+}
+
+/* mobile nav toggle */
+.nav-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+}
+
+.nav-toggle span{
+    width:24px;
+    height:2px;
+    background:var(--gold);
 }
 
 /* =========================
@@ -130,6 +172,10 @@ nav{
     border-radius:12px;
     transition:var(--transition);
     margin:8px;
+    border:1px solid transparent;
+    cursor:pointer;
+    font-size:15px;
+    font-family:inherit;
 }
 
 .btn-primary{
@@ -144,11 +190,54 @@ nav{
 
 .btn-outline{
     border:1px solid var(--gold);
+    background:transparent;
+    color:var(--text);
 }
 
 .btn-outline:hover{
     background:var(--gold);
     color:#000;
+}
+
+/* =========================
+   Page Header (inner pages)
+========================= */
+
+.page-header{
+    padding:60px 0 40px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+}
+
+.page-header .eyebrow{
+    color:var(--gold);
+    font-size:14px;
+    letter-spacing:2px;
+    margin-bottom:12px;
+    display:block;
+}
+
+.page-header h1{
+    font-size:42px;
+    color:var(--text);
+    margin-bottom:14px;
+}
+
+.page-header p{
+    color:var(--muted);
+    max-width:600px;
+    margin:auto;
+    font-size:16px;
+}
+
+.breadcrumb{
+    color:#777;
+    font-size:14px;
+    margin-top:16px;
+}
+
+.breadcrumb a:hover{
+    color:var(--gold);
 }
 
 /* =========================
@@ -164,6 +253,14 @@ section{
     margin-bottom:50px;
 }
 
+.section-title span.eyebrow{
+    color:var(--gold);
+    font-size:13px;
+    letter-spacing:2px;
+    display:block;
+    margin-bottom:10px;
+}
+
 .section-title h2{
     color:var(--gold);
     font-size:40px;
@@ -172,6 +269,45 @@ section{
 .section-title p{
     color:var(--muted);
     margin-top:10px;
+    max-width:600px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* =========================
+   Category Tabs
+========================= */
+
+.category-tabs{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:45px;
+}
+
+.tab-btn{
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--muted);
+    padding:10px 24px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:var(--transition);
+    font-size:15px;
+    font-family:inherit;
+}
+
+.tab-btn:hover{
+    border-color:var(--gold);
+    color:var(--text);
+}
+
+.tab-btn.active{
+    background:var(--gold);
+    color:#000;
+    border-color:var(--gold);
+    font-weight:bold;
 }
 
 /* =========================
@@ -194,6 +330,13 @@ section{
 
 .card:hover{
     transform:translateY(-6px);
+    border-color:#3a3a3a;
+}
+
+.card .icon{
+    font-size:30px;
+    margin-bottom:18px;
+    display:block;
 }
 
 .card h3{
@@ -203,6 +346,27 @@ section{
 
 .card p{
     color:var(--muted);
+}
+
+.card ul{
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:14px;
+}
+
+.card ul li{
+    margin-bottom:8px;
+    padding-right:18px;
+    position:relative;
+}
+
+.card ul li::before{
+    content:"—";
+    position:absolute;
+    right:0;
+    color:var(--gold);
 }
 
 /* =========================
@@ -216,19 +380,64 @@ section{
 }
 
 .portfolio-item{
-    height:230px;
     background:#1b1b1b;
     border:1px solid var(--border);
     border-radius:var(--radius);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#888;
+    overflow:hidden;
     transition:var(--transition);
 }
 
 .portfolio-item:hover{
-    transform:scale(1.02);
+    transform:translateY(-6px);
+    border-color:var(--gold);
+}
+
+.portfolio-item .img-wrap{
+    aspect-ratio:1/1;
+    overflow:hidden;
+    background:#111;
+}
+
+.portfolio-item .img-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s;
+    cursor:zoom-in;
+}
+
+.portfolio-item:hover .img-wrap img{
+    transform:scale(1.06);
+}
+
+.portfolio-item .caption{
+    padding:16px 18px;
+}
+
+.portfolio-item .caption .tag{
+    color:var(--gold);
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.portfolio-item .caption h4{
+    margin-top:6px;
+    font-size:16px;
+    color:var(--text);
+    font-weight:normal;
+}
+
+.portfolio-item.hidden{
+    display:none;
+}
+
+/* placeholder style retained for any legacy empty items */
+.portfolio-item.placeholder{
+    height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#888;
 }
 
 /* =========================
@@ -248,14 +457,36 @@ section{
     padding:35px;
     text-align:center;
     transition:var(--transition);
+    position:relative;
 }
 
 .price-card:hover{
     transform:translateY(-5px);
 }
 
+.price-card.featured{
+    border-color:var(--gold);
+}
+
+.price-card .badge{
+    position:absolute;
+    top:-14px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--gold);
+    color:#000;
+    font-size:12px;
+    font-weight:bold;
+    padding:5px 16px;
+    border-radius:999px;
+}
+
 .price-card h3{
     color:var(--gold);
+}
+
+.price-card p{
+    color:var(--muted);
 }
 
 .price{
@@ -263,6 +494,37 @@ section{
     color:var(--gold);
     margin:20px 0;
     font-weight:bold;
+}
+
+.price span{
+    font-size:15px;
+    color:var(--muted);
+    font-weight:normal;
+}
+
+.price-card .features{
+    text-align:right;
+    margin:22px 0;
+    color:#bbb;
+    font-size:14px;
+}
+
+.price-card .features li{
+    padding:8px 0;
+    border-top:1px solid var(--border);
+    padding-right:20px;
+    position:relative;
+}
+
+.price-card .features li:first-child{
+    border-top:none;
+}
+
+.price-card .features li::before{
+    content:"✓";
+    position:absolute;
+    right:0;
+    color:var(--gold);
 }
 
 /* =========================
@@ -291,13 +553,41 @@ section{
    Contact
 ========================= */
 
+.contact-wrap{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
+}
+
+@media(max-width:900px){
+    .contact-wrap{
+        grid-template-columns:1fr;
+    }
+}
+
 .contact-form{
     max-width:700px;
     margin:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:35px;
+}
+
+.contact-wrap .contact-form{
+    max-width:none;
+    margin:0;
 }
 
 .form-group{
     margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    color:var(--muted);
+    font-size:14px;
 }
 
 .form-control{
@@ -307,6 +597,14 @@ section{
     border:1px solid var(--border);
     color:white;
     border-radius:10px;
+    font-family:inherit;
+    font-size:15px;
+    transition:border-color var(--transition);
+}
+
+.form-control:focus{
+    outline:none;
+    border-color:var(--gold);
 }
 
 textarea.form-control{
@@ -314,9 +612,215 @@ textarea.form-control{
     min-height:150px;
 }
 
-.form-control:focus{
-    outline:none;
+select.form-control{
+    cursor:pointer;
+}
+
+.radio-group{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.radio-option{
+    flex:1;
+    min-width:140px;
+}
+
+.radio-option input{
+    display:none;
+}
+
+.radio-option label{
+    display:block;
+    text-align:center;
+    background:#1b1b1b;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 10px;
+    cursor:pointer;
+    transition:var(--transition);
+    font-size:14px;
+    margin-bottom:0;
+}
+
+.radio-option input:checked + label{
     border-color:var(--gold);
+    color:var(--gold);
+    background:rgba(212,175,55,.08);
+}
+
+.form-note{
+    font-size:13px;
+    color:#777;
+    margin-top:14px;
+}
+
+.contact-info{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.info-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+}
+
+.info-card .icon{
+    font-size:24px;
+    margin-bottom:12px;
+    display:block;
+}
+
+.info-card h4{
+    color:var(--gold);
+    margin-bottom:8px;
+    font-size:16px;
+}
+
+.info-card p, .info-card a{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.social-row{
+    display:flex;
+    gap:12px;
+    margin-top:14px;
+}
+
+.social-row a{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:var(--transition);
+    font-size:16px;
+}
+
+.social-row a:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+    transform:translateY(-3px);
+}
+
+.form-success{
+    display:none;
+    text-align:center;
+    padding:50px 20px;
+}
+
+.form-success .check{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:rgba(212,175,55,.12);
+    color:var(--gold);
+    font-size:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 20px;
+}
+
+.form-success h3{
+    color:var(--text);
+    margin-bottom:10px;
+}
+
+.form-success p{
+    color:var(--muted);
+}
+
+/* =========================
+   FAQ (pricing page)
+========================= */
+
+.faq-item{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:14px;
+    overflow:hidden;
+}
+
+.faq-question{
+    padding:20px 24px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:15px;
+    color:var(--text);
+}
+
+.faq-question .plus{
+    color:var(--gold);
+    font-size:20px;
+    transition:transform .3s;
+    flex-shrink:0;
+    margin-left:14px;
+}
+
+.faq-item.open .faq-question .plus{
+    transform:rotate(45deg);
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.faq-answer-inner{
+    padding:0 24px 20px;
+}
+
+/* =========================
+   Lightbox
+========================= */
+
+.lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+}
+
+.lightbox.open{
+    display:flex;
+}
+
+.lightbox img{
+    max-width:90vw;
+    max-height:85vh;
+    border-radius:10px;
+}
+
+.lightbox-close{
+    position:absolute;
+    top:24px;
+    left:24px;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
 }
 
 /* =========================
@@ -326,8 +830,40 @@ textarea.form-control{
 footer{
     border-top:1px solid var(--border);
     text-align:center;
-    padding:35px;
+    padding:50px 0 30px;
     color:#999;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:30px;
+    text-align:right;
+    margin-bottom:35px;
+}
+
+.footer-grid .col h4{
+    color:var(--gold);
+    margin-bottom:16px;
+    font-size:16px;
+}
+
+.footer-grid .col a,
+.footer-grid .col p{
+    display:block;
+    color:#999;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.footer-grid .col a:hover{
+    color:var(--gold);
+}
+
+.footer-bottom{
+    border-top:1px solid var(--border);
+    padding-top:24px;
+    font-size:13px;
 }
 
 /* =========================
@@ -359,7 +895,34 @@ footer{
 @media(max-width:768px){
 
     .menu{
-        display:none;
+        position:fixed;
+        top:77px;
+        right:0;
+        left:0;
+        background:#111;
+        flex-direction:column;
+        gap:0;
+        border-top:1px solid var(--border);
+        border-bottom:1px solid var(--border);
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .3s ease;
+        z-index:998;
+    }
+
+    .menu.open{
+        max-height:400px;
+    }
+
+    .menu a{
+        padding:16px 0;
+        text-align:center;
+        width:100%;
+        border-bottom:1px solid #1c1c1c;
+    }
+
+    .nav-toggle{
+        display:flex;
     }
 
     .hero{
@@ -376,6 +939,14 @@ footer{
 
     .section-title h2{
         font-size:32px;
+    }
+
+    .page-header h1{
+        font-size:30px;
+    }
+
+    .contact-form{
+        padding:24px;
     }
 }
 
